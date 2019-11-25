@@ -249,7 +249,7 @@ RCT_EXPORT_METHOD(showImagePicker:(NSDictionary *)options callback:(RCTResponseS
             if (imageURL && [[imageURL absoluteString] rangeOfString:@"ext=GIF"].location != NSNotFound) {
                 fileName = [tempFileName stringByAppendingString:@".gif"];
             }
-            else if ([[self.options objectForKey:@"imageFileType"] isEqualToString:@"png"]) {
+            else if ([[[self.options objectForKey:@"imageFileType"] stringValue] isEqualToString:@"png"] || [[[self.options objectForKey:@"imageFileType"] stringValue] isEqualToString:@"PNG"] || [[imageURL absoluteString] rangeOfString:@"ext=PNG"].location != NSNotFound || [[imageURL absoluteString] rangeOfString:@"ext=png"].location != NSNotFound) {
                 fileName = [tempFileName stringByAppendingString:@".png"];
             }
             else {
@@ -368,7 +368,7 @@ RCT_EXPORT_METHOD(showImagePicker:(NSDictionary *)options callback:(RCTResponseS
 
             NSData *data;
             NSString *mimeType;
-            if ([[self.options objectForKey:@"imageFileType"] isEqualToString:@"png"]) {
+            if  ([[[self.options objectForKey:@"imageFileType"] stringValue] isEqualToString:@"png"] || [[[self.options objectForKey:@"imageFileType"] stringValue] isEqualToString:@"PNG"] || [[imageURL absoluteString] rangeOfString:@"ext=PNG"].location != NSNotFound || [[imageURL absoluteString] rangeOfString:@"ext=png"].location != NSNotFound) {
                 data = UIImagePNGRepresentation(editedImage);
                 mimeType = (__bridge_transfer NSString *)(UTTypeCopyPreferredTagWithClass(kUTTypePNG, kUTTagClassMIMEType));
             }
